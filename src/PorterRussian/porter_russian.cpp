@@ -1,4 +1,4 @@
-#include <StemmerPorterRussian/PorterRussian/porter_russian.h>
+#include <kaspar/Algorithms/Stemmers/PorterRussian/porter_russian.h>
 #include <cctype>
 #include <cwctype>
 #include <algorithm>
@@ -66,7 +66,7 @@ size_t PorterRussian::find_R2(Russian::String const& str) {
 
 inline size_t _cut_end(Russian::Char const *cstr, size_t size, std::set<Russian::String> const &group) {
   for (size_t i = 0; i < size; ++i) {
-    if (group.count(&(cstr[i])) > 0) {
+    if (group.count(std::wstring(cstr + i, size - i)) > 0) {
       return i;
     }
   }
@@ -101,7 +101,7 @@ Russian::String PorterRussian::operator()(Russian::String str) {
 
 
     if (tmp == -1) {
-      size_t tmp2;
+      size_t tmp2 = -1;
       tmp = cut_end(str, AdjectiveEnd, rv, pos);
       tmp += (tmp != -1) * rv; // if -1 do nothing else add rv
       if (tmp == -1) {

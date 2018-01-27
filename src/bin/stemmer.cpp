@@ -8,8 +8,9 @@ using namespace kaspar;
 int main(void) {
   PorterRussian pr;
   std::wstring text;
-  std::getline(std::wcin, text);
-  std::wcout << pr(text) << std::endl;
+  while (std::wcin >> text) {
+    std::wcout << pr(text) << std::endl;
+  }
   
   return 0;
 }
